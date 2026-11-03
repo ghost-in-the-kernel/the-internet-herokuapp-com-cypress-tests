@@ -23,7 +23,7 @@ export const UrlPaths = {
   SHADOWDOM: '/shadowdom',
   CONTEXT_MENU: '/context_menu',
   NESTED_FRAMES: '/nested_frames',
-  FORGOT_PASSWORD: '/forgot_password',
+  ELEMENT: '/forgot_password',
   SUBDIRECTORIES: '/subdirectories',
   JQUERYUI_MENU: '/jqueryui/menu',
   WINDOWS_NEW: '/windows/new',

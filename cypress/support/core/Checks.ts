@@ -318,9 +318,17 @@ export const Checks = {
    * The link report: every address the crawl requested (support/links.ts: its path, what it
    * answered then, pages linking to it), asked once more, the report in cypress/link-report.md. Fails
    * only on one that answered 2xx in the crawl and does not now; one already broken then is listed
-   * as known, never failed again.
+   * as known, never failed again. A link the team lists as expected to fail (`expected`: its path and the status it
+   * answers, support/expected-links.ts) is held to that status instead: it fails only when it answers anything else.
    */
-  linksAnswerAsInTheCrawl(links: [string, number | null, string[]][]): void {
+  linksAnswerAsInTheCrawl(links: [string, number | null, string[]][], expected: [string, number][] = []): void {
+    // A link is listed by its path on the site: one that does not start with "/" is refused, saying which.
+    for (const [path] of expected)
+      if (!path.startsWith('/'))
+        throw new Error(
+          `cypress/support/expected-links.ts: "${path}" lists a path that does not start with "/": a link is listed by `
+                  + `its path on the site, like /status_codes/404`,
+        );
     // First each address the site's name points to (cypress.config.ts, siteAddresses): none taking a
     // connection, the site cannot be reached, and the run stops; some taking none, the site's own defect
     // (SITE-06), and the links are not asked (each request would take whichever address it was given),
@@ -362,18 +370,34 @@ export const Checks = {
       });
     });
     StepLog.step(`Ask the ${links.length} addresses the crawl requested, once each (cypress/link-report.md)`);
-    const rows: { broken: string[]; known: string[]; fine: string[]; since: string[] } = {
+    const rows: { broken: string[]; known: string[]; fine: string[]; since: string[]; unexpected: string[];
+            expected: string[] } = {
       broken: [],
       known: [],
       fine: [],
       since: [],
+      unexpected: [],
+      expected: [],
     };
+    const wanted = new Map(expected);
+    const listed = new Set(links.map(([path]) => path));
     const ok = (status: number | null) => status !== null && status >= 200 && status < 300;
     const said = (status: number | null) => (status === null ? 'no answer' : String(status));
-    for (const [path, then, from] of links) {
+    // A link the team lists that the crawl did not request is asked too.
+    const asked: [string, number | null, string[]][] = [...links, ...expected.filter(([path]) => !listed.has(path))
+            .map(([path]): [string, null, string[]] => [path, null, []])];
+    for (const [path, then, from] of asked) {
       Http.get(SiteConfig.url(path)).then((answer) => {
-        const row = `| ${path} | ${said(then)} | ${said(answer.status)} | ${from.join(', ')} |`;
-        if (ok(then) && !answer.ok) {
+        const row =
+                `| ${path} | ${listed.has(path) ? said(then) : 'not in the crawl'} | ${said(answer.status)} `
+                + `| ${from.join(', ')} |`;
+        const want = wanted.get(path);
+        if (want !== undefined) {
+          (answer.status === want ? rows.expected : rows.unexpected).push(row);
+          if (answer.status !== want) rows.since.push(
+                  `${path} answered ${said(answer.status)} (the team expects ${want}, `
+                  + `cypress/support/expected-links.ts)`);
+        } else if (ok(then) && !answer.ok) {
           rows.broken.push(row);
           rows.since.push(`${path} answered ${answer.status} (${then} in the crawl)`);
         } else (ok(then) ? rows.fine : rows.known).push(row);
@@ -386,14 +410,20 @@ export const Checks = {
       const md =
         '# Link report\n\nEvery address the crawl requested, asked again by this run. One that answered in the crawl'
                 + '\n' +
-        'and does not now fails the link report; one already broken in the crawl is listed as known.\n' +
+        'and does not now fails the link report; one already broken in the crawl is listed as known. One the team '
+                + 'lists\n' +
+        'in cypress/support/expected-links.ts is held to the status listed.\n' +
         section('Broken since the crawl', rows.broken) +
         section('Broken in the crawl, still listed', rows.known) +
-        section('Answering as in the crawl', rows.fine);
+        section('Answering as in the crawl', rows.fine) +
+        section('Not answering as the team expected (expected-links.ts)', rows.unexpected) +
+        section('Expected by the team, answering as listed (expected-links.ts)', rows.expected);
       return cy.writeFile('cypress/link-report.md', md, { log: false });
     }).then(() => {
       if (rows.since.length)
-        throw new Error(`Broken since the crawl (cypress/link-report.md): ${rows.since.join('; ')}`);
+        throw new Error(
+                `Broken since the crawl, or not as the team expected `
+                + `(cypress/link-report.md): ${rows.since.join('; ')}`);
     });
   },
 

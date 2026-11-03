@@ -43,13 +43,13 @@ export class ForgotPasswordPage extends LoadablePage<ForgotPasswordPage> {
 
   /** Goes to /forgot_password and waits until it has fully loaded. */
   open(): ForgotPasswordPage {
-    this.navigate(UrlPaths.FORGOT_PASSWORD);
+    this.navigate(UrlPaths.ELEMENT);
     return this.get();
   }
 
   protected isLoaded(): void {
-    WaitActions.forUrl(UrlPaths.FORGOT_PASSWORD,
-            (url) => `${this.name} did not load! URL was ${url}, expected ${UrlPaths.FORGOT_PASSWORD}`);
+    WaitActions.forUrl(UrlPaths.ELEMENT,
+            (url) => `${this.name} did not load! URL was ${url}, expected ${UrlPaths.ELEMENT}`);
     WaitActions.forPageLoad();
     
     WaitActions.forTitle(ForgotPasswordPage.TITLE,

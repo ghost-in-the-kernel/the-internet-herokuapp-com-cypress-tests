@@ -44,7 +44,7 @@ import { LargeFormElements } from '../../support/pages/largeform/LargeFormElemen
 import { LargeFormPage } from '../../support/pages/largeform/LargeFormPage';
 import { MultipleDropdownPage } from '../../support/pages/multipledropdown/MultipleDropdownPage';
 import { NestedFramesPage } from '../../support/pages/nestedframes/NestedFramesPage';
-import { NotificationMessageRenderedPage } from '../../support/pages/notificationmessa0e9eek4/NotificationMessageRenderedPage';
+import { NotificationMessageRenderedPage } from '../../support/pages/notificationmessage/NotificationMessageRenderedPage';
 import { RadioButtonsPage } from '../../support/pages/radiobuttons/RadioButtonsPage';
 import { ReadonlyElements } from '../../support/pages/readonly/ReadonlyElements';
 import { ReadonlyPage } from '../../support/pages/readonly/ReadonlyPage';
@@ -380,7 +380,7 @@ describe('SmokeTest: every page type opens and looks like itself',
 
   it('TwoFactorPage: the "Log in with tomsmith and SuperSecretPassword!. Then enter th" form is there and empty '
           + '(nothing is sent)', () => {
-    if (overridden('twoFactorLogInWithTomsmithAndSuperSecretPa1iaczzvForm')) return;
+    if (overridden('twoFactorThenEnterThForm')) return;
     new TwoFactorPage().open().verify()
       .isEmpty(TwoFactorElements.USERNAME_INPUT)
       .isEmpty(TwoFactorElements.PASSWORD_INPUT)

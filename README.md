@@ -19,7 +19,7 @@ npm run smoke                every page type loads (start here)
 npm test                     the suite's rules, then every test, headless
 npm run navigation           header, footer and page links land on the right pages
 npm run links                every address the crawl requested, asked again: cypress/link-report.md
-                             (fails on one broken since the crawl; 9 broken then, listed)
+                             (fails on one broken since the crawl; 7 broken then, listed)
                              and the 7 links to other sites: cypress/external-link-report.md
 npm run stories              the story tests
 npm run critical             the critical family: what matters most, marked by you
@@ -168,7 +168,7 @@ versions; changed, yours are kept. To replace a smoke test, give your version in
 
 ## Write a test
 
-The worked example in this suite is `cypress/e2e/cases/two-factor-form.cy.ts`, a test of TwoFactorPage, chosen because its form has the fewest fields of any page's. Open it beside `cypress/support/pages/twofactor/`: it opens TwoFactorPage, checks the browser will not send its form empty, fills it through `execute().fillLogInWithTomsmithAndSuperSecretPa1iaczzvForm(...)` with test data you can change, and checks each field holds what was typed. Nothing is sent: what happens after Send is the one thing left, and its YOURS block shows the lines to add.
+The worked example in this suite is `cypress/e2e/cases/two-factor-form.cy.ts`, a test of TwoFactorPage, chosen because its form has the fewest fields of any page's. Open it beside `cypress/support/pages/twofactor/`: it opens TwoFactorPage, checks the browser will not send its form empty, fills it through `execute().fillThenEnterThForm(...)` with test data you can change, and checks each field holds what was typed. Nothing is sent: what happens after Send is the one thing left, and its YOURS block shows the lines to add.
 
 A spec of your own in `cypress/e2e/cases/` with plain `it()` tests is held to one rule: each test
 checks something (SUITE-RULES.md).

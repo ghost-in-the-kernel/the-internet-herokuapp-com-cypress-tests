@@ -28,9 +28,9 @@ export class TinymcePage extends LoadablePage<TinymcePage> {
   static readonly TITLE = 'The Internet';
 
   /** What must be visible before the page counts as loaded. Remove any that come and go. */
-  // ==== YOURS (load-proof): safe to edit; kept once you change it, updated until then ==== default c1327b0a
+  // ==== YOURS (load-proof): safe to edit; kept once you change it, updated until then ==== default 55581fe5
   static readonly PROVES_LOADED: readonly PageElement[] = [
-    TinymceElements.AN_I_FRAME_CONTAINING_THE_TINY_M_1S3A4GM_HEADING,
+    TinymceElements.AN_I_FRAME_CONTAINING_THE_TINY_MCE_HEADING,
   ];
   // ==== END YOURS (load-proof) ====
 

@@ -61,7 +61,7 @@ export const HomeElements = elements({
   /** Link "Nested Frames" (href /nested_frames) to NestedFramesPage, seen by the crawl on /. */
   NESTED_FRAMES_LINK: byXPath('//a[@href=\'/nested_frames\']'),
   /** Link "Forgot Password" (href /forgot_password) to ForgotPasswordPage, seen by the crawl on /. */
-  FORGOT_PASSWORD_LINK: byXPath('//a[@href=\'/forgot_password\']'),
+  ELEMENT_LINK: byXPath('//a[@href=\'/forgot_password\']'),
   /** Link "Subdirectories" (href /subdirectories) to SubdirectoriesPage, seen by the crawl on /. */
   SUBDIRECTORIES_LINK: byXPath('//a[@href=\'/subdirectories\']'),
   /** Link "JQuery UI Menus" (href /jqueryui/menu) to JqueryuiMenuPage, seen by the crawl on /. */

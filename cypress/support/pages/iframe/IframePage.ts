@@ -28,9 +28,9 @@ export class IframePage extends LoadablePage<IframePage> {
   static readonly TITLE = 'The Internet';
 
   /** What must be visible before the page counts as loaded. Remove any that come and go. */
-  // ==== YOURS (load-proof): safe to edit; kept once you change it, updated until then ==== default b5532cc3
+  // ==== YOURS (load-proof): safe to edit; kept once you change it, updated until then ==== default 78edb4e0
   static readonly PROVES_LOADED: readonly PageElement[] = [
-    IframeElements.AN_I_FRAME_CONTAINING_THE_TINY_M_1S3A4GM_HEADING,
+    IframeElements.AN_I_FRAME_CONTAINING_THE_TINY_MCE_HEADING,
   ];
   // ==== END YOURS (load-proof) ====
 

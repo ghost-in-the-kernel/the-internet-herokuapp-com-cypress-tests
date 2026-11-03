@@ -7,7 +7,7 @@
 # Cypress's own image, of the version this suite uses: Node, Cypress, Chrome and Firefox, ready.
 default:
   image:
-    name: cypress/included:16.1.1
+    name: cypress/included:16.1.1@sha256:e652cda84399aaf99c68d1d0322085dc3faa7ca9ace88d9bb4f0f045d2ce6764
     entrypoint: ['']
 quick:
   # Judge the commit: a tree with changes fails SR-23 here, where a plain test run only warns.
@@ -61,7 +61,7 @@ full:
 stories-claim:
   rules:
     - if: $SUITE_JOB == "stories"
-  image: node:20
+  image: node:22
   environment:
     name: jira
     action: access
@@ -79,7 +79,7 @@ stories-crew:
   rules:
     - if: $SUITE_JOB == "stories"
   needs: [stories-claim]
-  image: node:20
+  image: node:22
   environment:
     name: crew
     action: access
@@ -96,7 +96,7 @@ stories-publish:
     - if: $SUITE_JOB == "stories"
       when: always
   needs: [stories-claim, stories-crew]
-  image: node:20
+  image: node:22
   timeout: 1h
   environment:
     name: jira

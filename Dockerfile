@@ -5,7 +5,7 @@
 #   docker run --rm --ipc=host suite -Dgroups=smoke       (Java) or --spec ... (Cypress): options pass through
 #   docker run --rm --ipc=host -e BASE_URL=https://staging.example.com suite
 # Cypress's own image, of the version this suite uses: Node, Cypress, Chrome and Firefox, ready.
-FROM cypress/included:16.1.1
+FROM cypress/included:16.1.1@sha256:e652cda84399aaf99c68d1d0322085dc3faa7ca9ace88d9bb4f0f045d2ce6764
 WORKDIR /suite
 COPY . .
 RUN npm ci

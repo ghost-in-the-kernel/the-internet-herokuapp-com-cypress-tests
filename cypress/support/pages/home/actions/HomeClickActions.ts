@@ -36,7 +36,7 @@ import { LargePage } from '../../large/LargePage';
 import { LargeFormPage } from '../../largeform/LargeFormPage';
 import { MultipleDropdownPage } from '../../multipledropdown/MultipleDropdownPage';
 import { NestedFramesPage } from '../../nestedframes/NestedFramesPage';
-import { NotificationMessageRenderedPage } from '../../notificationmessa0e9eek4/NotificationMessageRenderedPage';
+import { NotificationMessageRenderedPage } from '../../notificationmessage/NotificationMessageRenderedPage';
 import { RadioButtonsPage } from '../../radiobuttons/RadioButtonsPage';
 import { ReadonlyPage } from '../../readonly/ReadonlyPage';
 import { RedirectorPage } from '../../redirector/RedirectorPage';
@@ -193,7 +193,7 @@ export class HomeClickActions {
   /** Clicks the link to ForgotPasswordPage (Forgot Password) and waits for it. */
   goToForgotPassword(): ForgotPasswordPage {
     StepLog.step('Click "Forgot Password"');
-    Find.visible(HomeElements.FORGOT_PASSWORD_LINK).click();
+    Find.visible(HomeElements.ELEMENT_LINK).click();
     return new ForgotPasswordPage().get();
   }
 

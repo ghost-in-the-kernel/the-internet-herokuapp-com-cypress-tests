@@ -50,7 +50,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '20'
+          node-version: '22'
       - id: claim
         run: node jira-loop/agents.mjs claim
         env:
@@ -74,7 +74,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '20'
+          node-version: '22'
       - run: bash jira-loop/stories.sh
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -103,7 +103,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '20'
+          node-version: '22'
       - run: gh run download "$RUN" --repo "$REPO" --pattern "bundle-*" --dir jira-loop/run || echo "No bundle from the crew."
         env:
           GH_TOKEN: ${{ github.token }}
@@ -129,7 +129,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '20'
+          node-version: '22'
       - run: node jira-loop/agents.mjs merged
         env:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}

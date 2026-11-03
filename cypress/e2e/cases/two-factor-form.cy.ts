@@ -2,7 +2,7 @@
 // a person would.
 // EDIT RULES: edit only inside YOURS blocks; regenerating keeps them and rewrites the rest of this file.
 // Creator: https://github.com/ghost-in-the-kernel
-import { LogInWithTomsmithAndSuperSecretPa1iaczzv } from '../../support/pages/twofactor/LogInWithTomsmithAndSuperSecretPa1iaczzv';
+import { ThenEnterTh } from '../../support/pages/twofactor/ThenEnterTh';
 import { TwoFactorElements } from '../../support/pages/twofactor/TwoFactorElements';
 import { TwoFactorPage } from '../../support/pages/twofactor/TwoFactorPage';
 // ==== YOURS (imports): safe to edit; regenerating keeps what is between these lines ====
@@ -16,12 +16,12 @@ import { TwoFactorPage } from '../../support/pages/twofactor/TwoFactorPage';
  */
 describe('TwoFactorFormTest: the worked example', () => {
   it('The form on TwoFactorPage takes what a visitor types (nothing is sent)', () => {
-    // Test data: the form's sample (LogInWithTomsmithAndSuperSecretPa1iaczzv.ts); change one with a spread, {
-    // ...LogInWithTomsmithAndSuperSecretPa1iaczzv.sample(), username: '...' },
+    // Test data: the form's sample (ThenEnterTh.ts); change one with a spread, { ...ThenEnterTh.sample(), username:
+    // '...' },
     // or for one run: npx cypress run --expose username=...
-    const form = LogInWithTomsmithAndSuperSecretPa1iaczzv.sample();
+    const form = ThenEnterTh.sample();
     const here = new TwoFactorPage().open();
-    here.execute().fillLogInWithTomsmithAndSuperSecretPa1iaczzvForm(form)
+    here.execute().fillThenEnterThForm(form)
       .verify()
       .holds(TwoFactorElements.USERNAME_INPUT, form.username);
   });

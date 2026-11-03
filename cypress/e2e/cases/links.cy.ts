@@ -4,6 +4,7 @@
 // it, in this folder (ai/AI-README.md).
 // Creator: https://github.com/ghost-in-the-kernel
 import { Checks } from '../../support/core/Checks';
+import { EXPECTED_LINKS } from '../../support/expected-links';
 import { EXTERNAL } from '../../support/external-links';
 import { LINKS } from '../../support/links';
 
@@ -14,7 +15,7 @@ import { LINKS } from '../../support/links';
 describe('LinkReportTest: every address the crawl requested answers as it did',
         { retries: { runMode: 1, openMode: 0 }, tags: ['links'] }, () => {
   it('Every address the crawl requested answers as it did (cypress/link-report.md)', () => {
-    Checks.linksAnswerAsInTheCrawl(LINKS);
+    Checks.linksAnswerAsInTheCrawl(LINKS, EXPECTED_LINKS);
   });
 
   it('Every link to another site that answered in the crawl still does (cypress/external-link-report.md)', () => {

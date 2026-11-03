@@ -22,7 +22,7 @@ export class TinymceVerifyActions {
   /** Every section heading this page type shares is visible. */
   sectionHeadingsVisible(): TinymceVerifyActions {
     Checks.allShown('its section headings ("An iFrame containing the TinyMCE WYSIWYG Editor")',
-            TinymceElements.AN_I_FRAME_CONTAINING_THE_TINY_M_1S3A4GM_HEADING);
+            TinymceElements.AN_I_FRAME_CONTAINING_THE_TINY_MCE_HEADING);
     return this;
   }
 
