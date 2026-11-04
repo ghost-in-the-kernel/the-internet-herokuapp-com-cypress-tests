@@ -62,7 +62,7 @@ export const LargeFormElements = elements({
   INTERESTS_CHECKBOX_3: byXPath(
           '//form[@id=\'large-form\']//fieldset[legend[normalize-space()=\'Preferences\']]/input[6]'),
   /** range field "Years of experience: 5": seen by the crawl on /large_form. */
-  YEARS_OF_EXPERIENCE_5_INPUT: byXPath('//input[@id=\'experience\']'),
+  YEARS_OF_EXPERIENCE_INPUT: byXPath('//input[@id=\'experience\']'),
   /** color field "color": seen by the crawl on /large_form. */
   COLOR_INPUT: byXPath('//input[@name=\'color\']'),
   /** checkbox "I accept the terms": seen by the crawl on /large_form. */

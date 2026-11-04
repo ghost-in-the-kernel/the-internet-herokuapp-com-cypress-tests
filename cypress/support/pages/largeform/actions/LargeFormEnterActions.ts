@@ -121,14 +121,14 @@ export class LargeFormEnterActions {
   }
 
   /** Types into the range field "Years of experience: 5". */
-  yearsOfExperience5(text: string): LargeFormEnterActions {
-    UserActions.type(LargeFormElements.YEARS_OF_EXPERIENCE_5_INPUT, text);
+  yearsOfExperience(text: string): LargeFormEnterActions {
+    UserActions.type(LargeFormElements.YEARS_OF_EXPERIENCE_INPUT, text);
     return this;
   }
 
   /** Empties the range field "Years of experience: 5". */
-  clearYearsOfExperience5(): LargeFormEnterActions {
-    UserActions.clear(LargeFormElements.YEARS_OF_EXPERIENCE_5_INPUT);
+  clearYearsOfExperience(): LargeFormEnterActions {
+    UserActions.clear(LargeFormElements.YEARS_OF_EXPERIENCE_INPUT);
     return this;
   }
 

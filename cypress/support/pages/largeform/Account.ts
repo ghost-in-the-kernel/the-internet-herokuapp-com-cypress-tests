@@ -19,7 +19,7 @@ export interface Account {
   country: string;
   languages: string;
   aboutYou: string;
-  yearsOfExperience5: string;
+  yearsOfExperience: string;
   color: string;
 }
 
@@ -39,7 +39,7 @@ export const Account = {
       country: SiteConfig.value('country', 'Argentina'),
       languages: SiteConfig.value('languages', 'English'),
       aboutYou: SiteConfig.value('aboutYou', 'A test from the suite: please ignore.'),
-      yearsOfExperience5: SiteConfig.value('yearsOfExperience5', 'Test Years of experience: 5'),
+      yearsOfExperience: SiteConfig.value('yearsOfExperience', 'Test Years of experience: 5'),
       color: SiteConfig.value('color', 'Test color'),
     };
   },

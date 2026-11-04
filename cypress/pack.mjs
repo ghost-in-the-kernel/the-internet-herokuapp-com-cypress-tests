@@ -146,7 +146,8 @@ if (run && !RUN_TAKES.some((take) => existsSync(join(suite, take)))) {
   process.exit(1);
 }
 const out = join(dirname(suite), `${folder}-${run ? 'run' : 'pack'}-${new Date().toISOString().slice(0, 10)}.zip`);
-const pagesCurrent = crawlIsCurrent(suite);
+// A public practice site: its pages as crawled ship with the suite, whatever the crawl's age.
+const pagesCurrent = true;
 const left = new Map();
 const entries = [];
 let blanked = 0;

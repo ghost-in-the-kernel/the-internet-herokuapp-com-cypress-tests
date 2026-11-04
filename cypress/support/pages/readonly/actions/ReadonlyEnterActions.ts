@@ -37,14 +37,14 @@ export class ReadonlyEnterActions {
   }
 
   /** Types into the text field "Disabled (not the same as read-only)". */
-  disabledNotTheSameAs(text: string): ReadonlyEnterActions {
-    UserActions.type(ReadonlyElements.DISABLED_NOT_THE_SAME_AS_INPUT, text);
+  disabledNotTheSame(text: string): ReadonlyEnterActions {
+    UserActions.type(ReadonlyElements.DISABLED_NOT_THE_SAME_INPUT, text);
     return this;
   }
 
   /** Empties the text field "Disabled (not the same as read-only)". */
-  clearDisabledNotTheSameAs(): ReadonlyEnterActions {
-    UserActions.clear(ReadonlyElements.DISABLED_NOT_THE_SAME_AS_INPUT);
+  clearDisabledNotTheSame(): ReadonlyEnterActions {
+    UserActions.clear(ReadonlyElements.DISABLED_NOT_THE_SAME_INPUT);
     return this;
   }
 

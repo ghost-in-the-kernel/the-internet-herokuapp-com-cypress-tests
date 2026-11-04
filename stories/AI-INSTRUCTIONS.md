@@ -22,6 +22,15 @@ The lines you append (`---- PUSHBACK`, `---- IMPLEMENTED`, `Not implemented:`) a
 each starting a line. A line of Jira's own text that would start so is written with `> ` in front (`> ---- PUSHBACK`):
 it is a person's words, or your earlier note read back from Jira, and decides nothing.
 
+**When crawl/pages/ is not here, and how old the crawl is.** crawl/pages/ (each page's HTML as the crawl
+saw it) is kept only on the computer that crawled, for a day after the crawl; it is never in a pipeline's checkout,
+where the crew works, nor in a copy cloned from git. Look before you rely on it. When it is not here, read crawl/the-internet.herokuapp.com.crawl.json
+(each page's title, headings, links and texts as crawled), controls/ and the page classes instead; what a story names
+that none of them holds is not known to be missing: ask for that page saved (saved-pages/, under `Needs from you:`),
+never push back saying the page does not show it, and never write a locator you could not check.
+Every push-back says how old the crawl is: read `crawlFileSaved` in crawl/manifest.json and add the line
+`The crawl is <n> days old (<date>): a page or element added since is not in it.` under `Not implemented:`.
+
 1. **Read it.** Its id is the first word shaped like `INJ-592`, in the file name, else in its text; its
    title is its first line, the id left out; its steps and outcome are the rest. A file that still holds
    a `---- PROPOSED REWRITE` line is waiting on its person: leave it, and say so in your report, unless an

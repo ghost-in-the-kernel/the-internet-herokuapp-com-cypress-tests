@@ -370,7 +370,7 @@ describe('SmokeTest: every page type opens and looks like itself',
 
   it('TwoFactorPage: the "Then enter the one-time code shown on the next page." form is there and empty (nothing is '
           + 'sent)', () => {
-    if (overridden('twoFactorThenEnterTheOneTimeCodeShownOnTheNextForm')) return;
+    if (overridden('twoFactorForm')) return;
     new TwoFactorPage().open().verify()
       .isEmpty(TwoFactorElements.USERNAME_INPUT)
       .isEmpty(TwoFactorElements.PASSWORD_INPUT)
@@ -378,7 +378,7 @@ describe('SmokeTest: every page type opens and looks like itself',
   });
 
   it('ForgotPasswordPage: the "forgot_password" form is there and empty (nothing is sent)', () => {
-    if (overridden('forgotPasswordForgotPasswordForm')) return;
+    if (overridden('forgotPasswordForm')) return;
     new ForgotPasswordPage().open().verify()
       .isEmpty(ForgotPasswordElements.E_MAIL_INPUT)
       .shows(ForgotPasswordElements.RETRIEVE_PASSWORD_BUTTON);
@@ -395,7 +395,7 @@ describe('SmokeTest: every page type opens and looks like itself',
       .isEmpty(LargeFormElements.BIRTHDAY_INPUT)
       .isEmpty(LargeFormElements.AGE_INPUT)
       .isEmpty(LargeFormElements.ABOUT_YOU_INPUT)
-      .holds(LargeFormElements.YEARS_OF_EXPERIENCE_5_INPUT, '5')
+      .holds(LargeFormElements.YEARS_OF_EXPERIENCE_INPUT, '5')
       .shows(LargeFormElements.SUBMIT_BUTTON);
   });
 
@@ -404,11 +404,11 @@ describe('SmokeTest: every page type opens and looks like itself',
     new ReadonlyPage().open().verify()
       .holds(ReadonlyElements.TEXT_FIELD_INPUT, 'I am editable')
       .holds(ReadonlyElements.ALWAYS_READ_ONLY_INPUT, 'You cannot change me')
-      .holds(ReadonlyElements.DISABLED_NOT_THE_SAME_AS_INPUT, 'I am disabled');
+      .holds(ReadonlyElements.DISABLED_NOT_THE_SAME_INPUT, 'I am disabled');
   });
 
   it('KeyPressesPage: the "Key Presses" form is there and empty (nothing is sent)', () => {
-    if (overridden('keyPressesKeyPressesForm')) return;
+    if (overridden('keyPressesForm')) return;
     new KeyPressesPage().open().verify()
       .isEmpty(KeyPressesElements.TEXT_FIELD_INPUT);
   });

@@ -19,18 +19,18 @@ export class LargeFormTasks {
   fillAccountForm(form: Account): LargeFormPage;
   /** @deprecated Takes the form's record now: fillAccountForm(Account.sample()). This one goes in a later release. */
   fillAccountForm(firstName: string, lastName: string, email: string, nicknameOptional: string, birthday: string,
-          age: string, country: string, languages: string, aboutYou: string, yearsOfExperience5: string,
+          age: string, country: string, languages: string, aboutYou: string, yearsOfExperience: string,
           color: string): LargeFormPage;
   fillAccountForm(...given: [Account] | string[]): LargeFormPage {
     const form: Account = typeof given[0] === 'string' ? { firstName: given[0] as string, lastName: given[1] as string,
             email: given[2] as string, nicknameOptional: given[3] as string, birthday: given[4] as string,
             age: given[5] as string, country: given[6] as string, languages: given[7] as string,
-            aboutYou: given[8] as string, yearsOfExperience5: given[9] as string, color: given[10] as string } : (
+            aboutYou: given[8] as string, yearsOfExperience: given[9] as string, color: given[10] as string } : (
             given[0] as Account);
     const here = new LargeFormPage();
     here.enter().firstName(form.firstName).lastName(form.lastName).email(form.email)
             .nicknameOptional(form.nicknameOptional).birthday(form.birthday).age(form.age).country(form.country)
-            .languages(form.languages).aboutYou(form.aboutYou).yearsOfExperience5(form.yearsOfExperience5)
+            .languages(form.languages).aboutYou(form.aboutYou).yearsOfExperience(form.yearsOfExperience)
             .color(form.color);
     return here;
   }

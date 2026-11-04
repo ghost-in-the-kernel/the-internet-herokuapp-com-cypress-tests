@@ -21,6 +21,9 @@ story('PROJ-1', 'A visitor can get from the home page to where they want', () =>
 - Page methods queue Cypress commands and return the next page object, so the chain reads like the
   story. No `cy.` calls, selectors, `expect()` or `cy.wait(ms)` in a story: those live in the pages'
   actions and checks. Expected texts are plain strings, never regular expressions.
+- Names: classes PascalCase (`LoginPage`), methods lowerCamelCase (`enterEmail`), spec files kebab-case, element constants
+  as below. A name is made of words that say what the thing is: never a count, a price, a version or a sentence
+  of the page's text (the site changes those; `POLO_LINK`, not `N_6_POLO_LINK` for "(6) Polo").
 - Element constants: SCREAMING_SNAKE, ending in what the thing is: `_BUTTON`, `_LINK`, `_INPUT`, ...
 
 ## Where things are
