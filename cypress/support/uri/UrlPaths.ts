@@ -23,7 +23,7 @@ export const UrlPaths = {
   SHADOWDOM: '/shadowdom',
   CONTEXT_MENU: '/context_menu',
   NESTED_FRAMES: '/nested_frames',
-  ELEMENT: '/forgot_password',
+  FORGOT_PASSWORD: '/forgot_password',
   SUBDIRECTORIES: '/subdirectories',
   JQUERYUI_MENU: '/jqueryui/menu',
   WINDOWS_NEW: '/windows/new',
@@ -42,7 +42,7 @@ export const UrlPaths = {
   SHIFTING_CONTENT_MENU: '/shifting_content/menu',
   DISAPPEARING_ELEMENTS: '/disappearing_elements',
   TABLES: '/tables',
-  INFINITE_SCROLL_LIST: '/infinite_scroll',
+  INFINITE_SCROLL: '/infinite_scroll',
   CHECKBOXES: '/checkboxes',
   REDIRECTOR: '/redirector',
   GEOLOCATION: '/geolocation',
@@ -70,10 +70,6 @@ export const UrlPaths = {
   /** /shifting_content/* */
   shiftingContent(name: string): string {
     return `/shifting_content/${name}`;
-  },
-  /** /infinite_scroll/* */
-  infiniteScroll(name: string): string {
-    return `/infinite_scroll/${name}`;
   },
 
   /**

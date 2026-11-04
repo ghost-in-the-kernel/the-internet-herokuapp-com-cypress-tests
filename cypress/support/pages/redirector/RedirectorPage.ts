@@ -65,7 +65,7 @@ export class RedirectorPage extends LoadablePage<RedirectorPage> {
 
   /** What the crawl timed of these pages after their load event (the run's page timings flag one much slower). */
   protected crawlSettledMs(): number {
-    return 0;
+    return 300;
   }
 
   read(): RedirectorReadActions {

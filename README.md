@@ -20,7 +20,7 @@ npm test                     the suite's rules, then every test, headless
 npm run navigation           header, footer and page links land on the right pages
 npm run links                every address the crawl requested, asked again: cypress/link-report.md
                              (fails on one broken since the crawl; 7 broken then, listed)
-                             and the 7 links to other sites: cypress/external-link-report.md
+                             and the 1 links to other sites: cypress/external-link-report.md
 npm run stories              the story tests
 npm run critical             the critical family: what matters most, marked by you
 npm run family -- checkout   any family, yours included (cypress/families.txt)
@@ -66,7 +66,7 @@ leads.
 ## In a pipeline
 
 GitHub, GitLab and Azure: `.github/workflows/suite.yml`, `.gitlab-ci.yml`, `azure-pipelines.yml` (keep yours): the
-quick check (http and smoke) on every push, every test nightly in chromium and firefox. The `Dockerfile` runs the suite anywhere.
+quick check (http and smoke) on every push, every test in chromium and firefox when started by hand (no nightly run: `suite build --nightly` adds one). The `Dockerfile` runs the suite anywhere.
 Delete the ones you don't use: a rebuild leaves them out (an empty file of the same name brings one back).
 
 ## What's here
@@ -85,7 +85,7 @@ cypress/e2e/harness.cy.ts the harness testing itself (with every run)
 suite-rules/              the suite's rules (check.mjs) and fingerprints
 ```
 
-Page types found (57):
+Page types found (56):
 
 | Class | Kind | URL | Open it |
 | --- | --- | --- | --- |
@@ -132,8 +132,7 @@ Page types found (57):
 | `ShiftingContentMenuPage` | one-off | `/shifting_content/menu` | `new ShiftingContentMenuPage().open()` |
 | `DisappearingElementsPage` | one-off | `/disappearing_elements` | `new DisappearingElementsPage().open()` |
 | `TablesPage` | one-off | `/tables` | `new TablesPage().open()` |
-| `InfiniteScrollListPage` | one-off | `/infinite_scroll` | `new InfiniteScrollListPage().open()` |
-| `InfiniteScrollPage` | family, ~30 pages | `/infinite_scroll/*` | `new InfiniteScrollPage().open('18')` |
+| `InfiniteScrollPage` | one-off | `/infinite_scroll` | `new InfiniteScrollPage().open()` |
 | `CheckboxesPage` | one-off | `/checkboxes` | `new CheckboxesPage().open()` |
 | `RedirectorPage` | one-off | `/redirector` | `new RedirectorPage().open()` |
 | `GeolocationPage` | one-off | `/geolocation` | `new GeolocationPage().open()` |
@@ -168,7 +167,7 @@ versions; changed, yours are kept. To replace a smoke test, give your version in
 
 ## Write a test
 
-The worked example in this suite is `cypress/e2e/cases/two-factor-form.cy.ts`, a test of TwoFactorPage, chosen because its form has the fewest fields of any page's. Open it beside `cypress/support/pages/twofactor/`: it opens TwoFactorPage, checks the browser will not send its form empty, fills it through `execute().fillThenEnterThForm(...)` with test data you can change, and checks each field holds what was typed. Nothing is sent: what happens after Send is the one thing left, and its YOURS block shows the lines to add.
+The worked example in this suite is `cypress/e2e/cases/two-factor-form.cy.ts`, a test of TwoFactorPage, chosen because its form has the fewest fields of any page's. Open it beside `cypress/support/pages/twofactor/`: it opens TwoFactorPage, fills it through `execute().fillForm(...)` with test data you can change, and checks each field holds what was typed. Nothing is sent: what happens after Send is the one thing left, and its YOURS block shows the lines to add.
 
 A spec of your own in `cypress/e2e/cases/` with plain `it()` tests is held to one rule: each test
 checks something (SUITE-RULES.md).
@@ -195,11 +194,6 @@ folder, then:
 
 `ai/AI-README.md` is written for an AI assistant: hand it this folder, put the stories in stories/new/, and
 say "do the stories". The crawl this was generated from is in `crawl/`: keep it with the project.
-
-## Ownership
-
-This test suite is licensed to the owner of the site it tests, to use, change and share for any
-purpose, commercial use included, apart from Suite Builder's own license: see [LICENSE](LICENSE).
 
 ## Notes
 

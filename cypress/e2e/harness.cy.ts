@@ -279,13 +279,13 @@ describe('HarnessTest: the harness tests itself, on a page of its own', () => {
   });
 
   it('hasAttribute fails on another value, quoting it', () => {
-    says(`Expected the help link's href to be "/about", but it was "/help" (waited 0.5 s).`);
+    says('Expected the help link\'s href to be "/about", but it was "/help" (waited 0.5 s).');
     Checks.hasAttribute(Harness.HELP_LINK, 'href', '/about');
     failedToFail();
   });
 
   it('hasAttribute fails on an attribute the element lacks, saying it is missing', () => {
-    says(`Expected the help link's title to be "Help", but it was missing (waited 0.5 s).`);
+    says('Expected the help link\'s title to be "Help", but it was missing (waited 0.5 s).');
     Checks.hasAttribute(Harness.HELP_LINK, 'title', 'Help');
     failedToFail();
   });

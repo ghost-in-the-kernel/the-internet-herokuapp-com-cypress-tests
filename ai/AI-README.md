@@ -29,7 +29,9 @@ story('PROJ-1', 'A visitor can get from the home page to where they want', () =>
 | --- | --- |
 | a page, and how to reach it | ai/GLOSSARY.md, then the page class's doc comment |
 | its elements | `cypress/support/pages/<type>/<Type>Elements.ts` |
-| what a visitor does, what a test expects | `core/UserActions.ts`, `core/Checks.ts` (each logs its step, and fails in plain English; `Checks.assume` skips a test whose data is not there, saying why) |
+| a button, field or dropdown the crawl saw | controls/<PageClass>.md, controls/Everywhere.md (a line to paste for each one the page does not have yet) |
+| every method the library offers, with its parameters | ai/API.md (call only a method declared there or in its class) |
+| what a visitor does, what a test expects | `core/UserActions.ts`, `core/Checks.ts`(each logs its step, and fails in plain English; `Checks.assume` skips a test whose data is not there, saying why) |
 | the team's test data (CSV: reusable rows, rows a test uses up, per environment) | `core/TestData.ts`, cypress/data/README.md |
 | the waits pages are built from | `core/WaitActions.ts` (never `cy.wait(ms)`) |
 | a heading by its whole text | `Headings.named('Contact Us')` |

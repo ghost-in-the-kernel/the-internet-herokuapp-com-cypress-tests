@@ -10,6 +10,9 @@ cypress/flaky-tests.txt
 cypress/stopped-early.txt
 cypress/rules-report.md
 cypress/link-report.md
+cypress/external-link-report.md
+cypress/timings/
+cypress/timings-previous/
 orphaned/
 saved-pages/
 crawl/pages/
@@ -17,5 +20,9 @@ crawl/pages/
 secrets/*.login
 jira-loop/reported.json
 .claude/
+.idea/
+.vscode/
+.env
+.DS_Store
 # ==== YOURS (ignore): safe to edit; regenerating keeps what is between these lines ====
 # ==== END YOURS (ignore) ====

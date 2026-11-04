@@ -23,6 +23,9 @@ Elements live in the page's Elements file (`DynamicLoadingElements.ts`), in its 
 
 - **Name** it SCREAMING_SNAKE, ending in what it is. Steps call it by that ("Click the sign up button");
   to say it better: `SEND_BUTTON: { ...byCss('#send'), label: 'the Send button' },`.
+- **Look it up first** in controls/<PageClass>.md and controls/Everywhere.md: each button, field and
+  dropdown the crawl saw that the page does not have yet, by the words a story would use, with a line
+  to paste here. Its locator matched exactly one element when the crawl read the page.
 - **Take the locator from the page**, never guess: crawl/pages/ (the page as crawled), a saved page, or
   Selector Grabber in Chrome (https://chromewebstore.google.com/detail/gjpelpkcfkikaflgljfgfipblpcmocei).
   Prefer a test id, a stable id, a name or label, the visible text; avoid positions and generated classes.

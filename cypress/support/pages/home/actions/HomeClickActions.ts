@@ -26,7 +26,7 @@ import { FramesPage } from '../../frames/FramesPage';
 import { GeolocationPage } from '../../geolocation/GeolocationPage';
 import { HorizontalSliderPage } from '../../horizontalslider/HorizontalSliderPage';
 import { HoversPage } from '../../hovers/HoversPage';
-import { InfiniteScrollListPage } from '../../infinitescrolllist/InfiniteScrollListPage';
+import { InfiniteScrollPage } from '../../infinitescroll/InfiniteScrollPage';
 import { InputsPage } from '../../inputs/InputsPage';
 import { JavascriptAlertsPage } from '../../javascriptalerts/JavascriptAlertsPage';
 import { JavascriptErrorPage } from '../../javascripterror/JavascriptErrorPage';
@@ -193,7 +193,7 @@ export class HomeClickActions {
   /** Clicks the link to ForgotPasswordPage (Forgot Password) and waits for it. */
   goToForgotPassword(): ForgotPasswordPage {
     StepLog.step('Click "Forgot Password"');
-    Find.visible(HomeElements.ELEMENT_LINK).click();
+    Find.visible(HomeElements.FORGOT_PASSWORD_LINK).click();
     return new ForgotPasswordPage().get();
   }
 
@@ -302,11 +302,11 @@ export class HomeClickActions {
     return new TablesPage().get();
   }
 
-  /** Clicks the link to InfiniteScrollListPage (Infinite Scroll) and waits for it. */
-  goToInfiniteScrollList(): InfiniteScrollListPage {
+  /** Clicks the link to InfiniteScrollPage (Infinite Scroll) and waits for it. */
+  goToInfiniteScroll(): InfiniteScrollPage {
     StepLog.step('Click "Infinite Scroll"');
-    Find.visible(HomeElements.INFINITE_SCROLL_LIST_LINK).click();
-    return new InfiniteScrollListPage().get();
+    Find.visible(HomeElements.INFINITE_SCROLL_LINK).click();
+    return new InfiniteScrollPage().get();
   }
 
   /** Clicks the link to CheckboxesPage (Checkboxes) and waits for it. */

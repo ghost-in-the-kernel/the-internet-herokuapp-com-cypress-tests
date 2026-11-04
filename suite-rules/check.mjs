@@ -32,6 +32,7 @@ const RULES = {
   'SR-21': 'A done story\'s notes name every criterion, by its number',
   'SR-22': 'One element, one name',
   'SR-23': 'A done story\'s test passed in its latest recorded run of this commit',
+  'SR-24': 'Test code does not delete files or run processes',
 };
 // How each rule is held: hard and story fail the check; advisory is a warning, and the run goes on.
 const TIERS = {
@@ -55,6 +56,7 @@ const TIERS = {
   'SR-21': 'story',
   'SR-22': 'hard',
   'SR-23': 'story',
+  'SR-24': 'hard',
 };
 const FINGERPRINTS = 'suite-rules/fingerprints.txt';
 // Generated files a team may delete for good (the pipelines it does not use, the container files).
@@ -253,6 +255,96 @@ for (const f of specs.filter((s) => s.startsWith('cypress/e2e/cases/'))) {
     if (!checks.includes('.verify()') && !checks.includes('Checks.') && !checks.includes('Api.expect('))
       add('SR-19', `${f}: test ${i + 1} checks nothing; end it with .verify()... or a Checks call.`);
   });
+}
+
+// ---- SR-24: test code does not delete files or run processes ------------------------------
+
+/**
+ * Code without comments and string contents, as code(), but a `${...}` in a template literal stays code; lines are
+ * kept.
+ */
+function codeAndTemplates(text) {
+  const read = (from, to) => {
+    let out = '';
+    for (let i = from; i < to; i++) {
+      const c = text[i];
+      if (c === '/' && text[i + 1] === '/') {
+        while (i < to && text[i] !== '\n') i++;
+        out += '\n';
+      } else if (c === '/' && text[i + 1] === '*') {
+        i += 2;
+        while (i < to && !(text[i] === '*' && text[i + 1] === '/')) out += text[i++] === '\n' ? '\n' : '';
+        i++;
+      } else if (c === "'" || c === '"' || c === '`') {
+        out += c;
+        i++;
+        while (i < to && text[i] !== c) {
+          if (text[i] === '\\') i += 2;
+          else if (c === '`' && text[i] === '$' && text[i + 1] === '{') {
+            let depth = 1;
+            let j = i + 2;
+            for (; j < to && depth > 0; j++) depth += text[j] === '{' ? 1 : text[j] === '}' ? -1 : 0;
+            out += ` ${read(i + 2, j - 1)} `;
+            i = j;
+          } else out += text[i++] === '\n' ? '\n' : '';
+        }
+        out += c;
+      } else out += c;
+    }
+    return out;
+  };
+  return read(0, text.length);
+}
+// What deletes a file or starts a process (a bare x.exec( is a regular expression's, so only a shell's name is looked
+// for).
+const DESTRUCTIVE = [
+  [/\brimraf\b|\brmSync\b|\brmdir(Sync)?\b|\bunlink(Sync)?\b|\.\s*rm\s*\(|(^|[^\w$.])rm\s*\(/,
+          'deletes a file or a folder'],
+  [
+    /\bchild_process\b|\bexecSync\b|\bexecFile(Sync)?\b|\bspawn(Sync)?\s*\(|\bfork\s*\(|(^|[^\w$.])exec\s*\(|\b(cp|shell|sh)\s*\.\s*exec\w*\s*\(|\bcy\s*\.\s*exec\b|\bprocess\s*\.\s*(exit|kill|abort)\b/,
+    'runs a command or a process',
+  ],
+];
+const SHELL_MODULE =
+        /(?:from|require\s*\(|import\s*\()\s*['"](?:node:)?(?:child_process|worker_threads|cluster|shelljs|execa|rimraf|fs-extra|del)['"]/;
+// The tasks cypress.config.ts gives a test; each deletes and runs nothing (src/targets/cypress-ts/rules.ts).
+const TASKS = ["suiteLog", "testFailed", "account", "testDataRows", "testDataTake", "testSkipped", "bugOpen",
+        "bugBlocked", "bugLooksFixed", "testPassed", "siteAddresses", "askLinks", "runStopped", "pageTiming",
+        "apiTiming"];
+// The suite's own runner and packer start git and node; SR-16 seals them.
+const NOT_TEST_CODE = new Set(['cypress/run.mjs', 'cypress/pack.mjs']);
+for (const f of files('cypress').filter((p) => /\.(m|c)?[jt]s$/.test(p) && !NOT_TEST_CODE.has(p))) {
+  const raw = read(f);
+  const bare = codeAndTemplates(raw);
+  for (const [pattern, what] of DESTRUCTIVE) {
+    const found = pattern.exec(bare);
+    if (found)
+      add(
+        'SR-24',
+        `${f}:${bare.slice(0, found.index).split('\n').length}: ${found[0].replace(/^[^\w.]/, '')} ${what}; a test `
+                + `only looks at the site and never deletes a file or runs a process. Take it out: cypress.config.ts `
+                + `clears the run's folders, and a command that must run before the tests belongs in a pipeline step, `
+                + `not in a test.`,
+      );
+  }
+  // A task a test calls is node code in cypress.config.ts: only the suite's own tasks, none of which deletes or runs
+  // anything.
+  if (/\bcy\s*\.\s*task\b/.test(bare)) {
+    for (const call of raw.matchAll(/\bcy\s*\.\s*task\s*(?:<[^()]*>)?\s*\(\s*(?:(['"])(\w+)\1)?/g)) {
+      if (!call[2] || !TASKS.includes(call[2]))
+        add(
+          'SR-24',
+          `${f}:${raw.slice(0, call.index).split('\n').length}: cy.task(${call[2] ? `'${call[2]}'` : '...'}) is not `
+                  + `one of the suite's own tasks (${TASKS.join(', ')}). A task is node code in cypress.config.ts, `
+                  + `which a test must not add: take the call out.`,
+        );
+    }
+  }
+  const module = SHELL_MODULE.exec(raw);
+  if (module)
+    add('SR-24',
+            `${f}:${raw.slice(0, module.index).split('\n').length}: ${module[0]} brings in a way to run a process or `
+            + `delete files; a test never needs one. Take the import out.`);
 }
 
 // ---- SR-20: account files stay out of git ------------------------------------------------

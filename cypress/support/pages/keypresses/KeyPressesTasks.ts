@@ -29,7 +29,7 @@ export class KeyPressesTasks {
   }
 
   // ==== YOURS (tasks): safe to edit; regenerating keeps what is between these lines ====
-  // One method per task a story names, built from this page's actions (ai/recipes/add-a-task.md), e.g.:
+  // One method per task a story names, built from this page's actions, e.g.:
   // signUp(email: string): ThankYouPage {
   //   const here = new KeyPressesPage();
   //   here.enter().email(email);

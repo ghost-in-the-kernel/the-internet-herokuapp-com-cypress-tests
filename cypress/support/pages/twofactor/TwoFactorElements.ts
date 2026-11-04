@@ -15,8 +15,7 @@ export const TwoFactorElements = elements({
   /** Heading "Two-Factor Login": every crawled page of this type showed it. */
   TWO_FACTOR_LOGIN_HEADING: Headings.named('Two-Factor Login'),
 
-  // "Log in with tomsmith and SuperSecretPassword!. Then enter th" form (from the crawl: nothing was typed, clicked or
-  // sent).
+  // "Then enter the one-time code shown on the next page." form (from the crawl: nothing was typed, clicked or sent).
   /** text field "Username": seen by the crawl on /two_factor. */
   USERNAME_INPUT: byXPath('//input[@id=\'username\']'),
   /** password field "Password": seen by the crawl on /two_factor. */

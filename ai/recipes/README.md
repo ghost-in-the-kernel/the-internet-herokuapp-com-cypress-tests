@@ -6,6 +6,9 @@ Short how-tos for working on this suite. Read the one a task needs.
 - write-a-story-test.md
 - add-an-element.md
 - add-an-action.md
+- add-a-task.md
+- use-a-saved-page.md
+- add-a-page-type.md
 - wait-for-a-slow-page.md
 - forms-and-test-data.md
 - frames-tabs-and-dialogs.md

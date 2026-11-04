@@ -61,7 +61,7 @@ export const HomeElements = elements({
   /** Link "Nested Frames" (href /nested_frames) to NestedFramesPage, seen by the crawl on /. */
   NESTED_FRAMES_LINK: byXPath('//a[@href=\'/nested_frames\']'),
   /** Link "Forgot Password" (href /forgot_password) to ForgotPasswordPage, seen by the crawl on /. */
-  ELEMENT_LINK: byXPath('//a[@href=\'/forgot_password\']'),
+  FORGOT_PASSWORD_LINK: byXPath('//a[@href=\'/forgot_password\']'),
   /** Link "Subdirectories" (href /subdirectories) to SubdirectoriesPage, seen by the crawl on /. */
   SUBDIRECTORIES_LINK: byXPath('//a[@href=\'/subdirectories\']'),
   /** Link "JQuery UI Menus" (href /jqueryui/menu) to JqueryuiMenuPage, seen by the crawl on /. */
@@ -92,8 +92,8 @@ export const HomeElements = elements({
   DISAPPEARING_ELEMENTS_LINK: byXPath('//a[@href=\'/disappearing_elements\']'),
   /** Link "Sortable Data Tables" (href /tables) to TablesPage, seen by the crawl on /. */
   TABLES_LINK: byXPath('//a[@href=\'/tables\']'),
-  /** Link "Infinite Scroll" (href /infinite_scroll) to InfiniteScrollListPage, seen by the crawl on /. */
-  INFINITE_SCROLL_LIST_LINK: byXPath('//a[@href=\'/infinite_scroll\']'),
+  /** Link "Infinite Scroll" (href /infinite_scroll) to InfiniteScrollPage, seen by the crawl on /. */
+  INFINITE_SCROLL_LINK: byXPath('//a[@href=\'/infinite_scroll\']'),
   /** Link "Checkboxes" (href /checkboxes) to CheckboxesPage, seen by the crawl on /. */
   CHECKBOXES_LINK: byXPath('//a[@href=\'/checkboxes\']'),
   /** Link "Redirect Link" (href /redirector) to RedirectorPage, seen by the crawl on /. */

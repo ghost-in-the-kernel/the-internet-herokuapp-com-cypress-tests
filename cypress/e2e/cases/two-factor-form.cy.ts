@@ -2,8 +2,8 @@
 // a person would.
 // EDIT RULES: edit only inside YOURS blocks; regenerating keeps them and rewrites the rest of this file.
 // Creator: https://github.com/ghost-in-the-kernel
-import { ThenEnterTh } from '../../support/pages/twofactor/ThenEnterTh';
 import { TwoFactorElements } from '../../support/pages/twofactor/TwoFactorElements';
+import { TwoFactorForm } from '../../support/pages/twofactor/TwoFactorForm';
 import { TwoFactorPage } from '../../support/pages/twofactor/TwoFactorPage';
 // ==== YOURS (imports): safe to edit; regenerating keeps what is between these lines ====
 // ==== END YOURS (imports) ====
@@ -16,24 +16,24 @@ import { TwoFactorPage } from '../../support/pages/twofactor/TwoFactorPage';
  */
 describe('TwoFactorFormTest: the worked example', () => {
   it('The form on TwoFactorPage takes what a visitor types (nothing is sent)', () => {
-    // Test data: the form's sample (ThenEnterTh.ts); change one with a spread, { ...ThenEnterTh.sample(), username:
+    // Test data: the form's sample (TwoFactorForm.ts); change one with a spread, { ...TwoFactorForm.sample(), username:
     // '...' },
     // or for one run: npx cypress run --expose username=...
-    const form = ThenEnterTh.sample();
+    const form = TwoFactorForm.sample();
     const here = new TwoFactorPage().open();
-    here.execute().fillThenEnterThForm(form)
+    here.execute().fillForm(form)
       .verify()
       .holds(TwoFactorElements.USERNAME_INPUT, form.username);
   });
 
-  // ==== YOURS (tests): safe to edit; regenerating keeps what is between these lines ====
+  // ==== YOURS (tests): safe to edit; kept once you change it, updated until then ==== default ddc23c61
   // What happens after Send is yours to write: the crawl never sends a form, so it never saw the
   // answer, and a generated test never sends one. Sending it sends real data: run it
   // against a test copy of the site (BASE_URL=https://staging... npm test). For example:
   //
   // it('Sending the form says thank you', () => {
   //   const here = new TwoFactorPage().open();
-  // here.execute().fillLogInWithTomsmithAndSuperSecretPa1iaczzvForm(LogInWithTomsmithAndSuperSecretPa1iaczzv.sample());
+  //   here.execute().fillForm(TwoFactorForm.sample());
   //   here.click().next();
   //   here.verify().showsText('Thank you');
   // });

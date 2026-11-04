@@ -9,7 +9,7 @@ import { EXTERNAL } from '../../support/external-links';
 import { LINKS } from '../../support/links';
 
 /**
- * The 102 addresses the crawl requested, each asked once more, the report in cypress/link-report.md. It fails only on
+ * The 73 addresses the crawl requested, each asked once more, the report in cypress/link-report.md. It fails only on
  * one that answered in the crawl and does not now. Run just these: npm run links.
  */
 describe('LinkReportTest: every address the crawl requested answers as it did',

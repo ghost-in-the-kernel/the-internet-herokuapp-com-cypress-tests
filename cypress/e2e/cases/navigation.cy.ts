@@ -6,7 +6,6 @@ import { DisappearingElementsPage } from '../../support/pages/disappearingelemen
 import { DynamicLoadingListPage } from '../../support/pages/dynamicloadinglist/DynamicLoadingListPage';
 import { FramesPage } from '../../support/pages/frames/FramesPage';
 import { HomePage } from '../../support/pages/home/HomePage';
-import { InfiniteScrollPage } from '../../support/pages/infinitescroll/InfiniteScrollPage';
 import { JqueryuiPage } from '../../support/pages/jqueryui/JqueryuiPage';
 import { ShiftingContentListPage } from '../../support/pages/shiftingcontentlist/ShiftingContentListPage';
 import { ShiftingContentMenuPage } from '../../support/pages/shiftingcontentmenu/ShiftingContentMenuPage';
@@ -162,8 +161,8 @@ describe('NavigationTest: links land on the pages they promise',
     new HomePage().open().click().goToTables().verify().isLoaded();
   });
 
-  it('/ -> /infinite_scroll lands on InfiniteScrollListPage', () => {
-    new HomePage().open().click().goToInfiniteScrollList().verify().isLoaded();
+  it('/ -> /infinite_scroll lands on InfiniteScrollPage', () => {
+    new HomePage().open().click().goToInfiniteScroll().verify().isLoaded();
   });
 
   it('/ -> /checkboxes lands on CheckboxesPage', () => {
@@ -264,9 +263,5 @@ describe('NavigationTest: links land on the pages they promise',
 
   it('/disappearing_elements -> / lands on HomePage', () => {
     new DisappearingElementsPage().open().click().goToHome().verify().isLoaded();
-  });
-
-  it('/infinite_scroll/18 -> /infinite_scroll/19 lands on InfiniteScrollPage', () => {
-    new InfiniteScrollPage().open('18').click().goToInfiniteScroll('19').verify().isLoaded();
   });
 });

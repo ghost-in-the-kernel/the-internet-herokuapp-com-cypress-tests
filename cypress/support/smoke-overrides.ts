@@ -51,7 +51,6 @@ import type { SmokeOverride } from './core/Smoke';
  *   shiftingContentMenuPageLoads
  *   disappearingElementsPageLoads
  *   tablesPageLoads
- *   infiniteScrollListPageLoads
  *   infiniteScrollPageLoads
  *   checkboxesPageLoads
  *   redirectorPageLoads
@@ -65,7 +64,7 @@ import type { SmokeOverride } from './core/Smoke';
  *   dragAndDropPageLoads
  *   keyPressesPageLoads
  *   typosPageLoads
- *   twoFactorLogInWithTomsmithAndSuperSecretPa1iaczzvForm
+ *   twoFactorThenEnterTheOneTimeCodeShownOnTheNextForm
  *   forgotPasswordForgotPasswordForm
  *   largeFormAccountForm
  *   readonlyReadOnlyInputsForm

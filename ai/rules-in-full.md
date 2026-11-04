@@ -123,6 +123,12 @@ SUITE-RULES.md is the one-page list. This is every rule in full, for whoever fix
 
 **How to fix it.** Commit your changes (a tree with changes is a warning under a plain npm test, a failure under suite test and the pipelines, which set SUITE_JUDGE=commit), then run the whole suite on that commit with Suite Builder (suite test &lt;project>, in the suite-builder folder, never from here) so the run is recorded in runs/index.jsonl; fix the story's test if it failed, and the other rules if they were broken in that run. A story that is not finished goes back to stories/new/. Never edit runs/index.jsonl: it is the record of what ran.
 
+## SR-24 · Test code does not delete files or run processes (hard)
+
+**Why.** A test looks at the site and says what it saw; it never deletes anything and never runs a command. A deleting call in a test can take a person's files with it the day its path comes out wrong, and a process started by a test runs with the rights of whoever runs the suite, on a pipeline's machine too; text from the site (a page title, a link) can end up in a test, and must never be able to reach such a call. Checked: every .ts, .js and .mjs file under cypress/ (cypress/run.mjs and cypress/pack.mjs, the suite's own and sealed by SR-16, aside) uses none of rmSync, rm(, rimraf, rmdir, unlink, child_process, execSync, execFile, spawn, fork, exec, cy.exec, process.exit or process.kill, in code (a comment or a string saying it is no use). cypress.config.ts (where the run clears its own folders) (the harness, sealed by SR-16, with its YOURS blocks left unread) are not read. A cy.task in a test must be one of the suite's own tasks (suiteLog, testFailed, account, testDataRows, testDataTake, testSkipped, bugOpen, bugBlocked, bugLooksFixed, testPassed, siteAddresses, askLinks, runStopped, pageTiming, apiTiming): a new task is new node code in cypress.config.ts.
+
+**How to fix it.** Take the call out. A test needs no clean slate of its own: cypress.config.ts clears the run's folders (cypress/failures and the lists) as a run starts, and a command that has to run before the tests belongs in a pipeline step or a script a person runs, not in a test. If a step truly needs a file removed, ask the person who looks after the suite to do it there.
+
 ## SR-02 · A story is written with story() (holds by how a story is written)
 
 A story is a spec that calls story(): a spec that does not is a test of your own, held to the hard rules only, so no story is written without it.

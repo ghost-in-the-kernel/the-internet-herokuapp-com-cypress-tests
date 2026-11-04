@@ -5,10 +5,4 @@
 // Creator: https://github.com/ghost-in-the-kernel
 export const EXTERNAL: [string, number, 'alive' | 'barred' | 'broken', string[]][] = [
   ['https://github.com/saucelabs/the-internet', 200, 'alive', ['/', '/tinymce', '/hovers']],
-  ['http://elementalselenium.com/', 200, 'alive', ['/', '/tinymce', '/hovers']],
-  ['https://saucelabs.com/', 200, 'alive', ['/', '/tinymce', '/hovers']],
-  ['https://www.tiny.cloud/powered-by-tiny', 200, 'alive', ['/tinymce', '/iframe']],
-  ['http://api.jqueryui.com/menu/', 200, 'alive', ['/jqueryui/menu']],
-  ['http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml', 200, 'alive', ['/status_codes']],
-  ['http://jqueryui.com/', 200, 'alive', ['/jqueryui']],
 ];

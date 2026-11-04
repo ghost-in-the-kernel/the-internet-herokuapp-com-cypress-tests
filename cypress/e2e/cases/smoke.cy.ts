@@ -31,7 +31,6 @@ import { HorizontalSliderPage } from '../../support/pages/horizontalslider/Horiz
 import { HoversPage } from '../../support/pages/hovers/HoversPage';
 import { IframePage } from '../../support/pages/iframe/IframePage';
 import { InfiniteScrollPage } from '../../support/pages/infinitescroll/InfiniteScrollPage';
-import { InfiniteScrollListPage } from '../../support/pages/infinitescrolllist/InfiniteScrollListPage';
 import { InputsPage } from '../../support/pages/inputs/InputsPage';
 import { JavascriptAlertsPage } from '../../support/pages/javascriptalerts/JavascriptAlertsPage';
 import { JavascriptErrorPage } from '../../support/pages/javascripterror/JavascriptErrorPage';
@@ -304,18 +303,9 @@ describe('SmokeTest: every page type opens and looks like itself',
     new TablesPage().open().verify().sectionHeadingsVisible();
   });
 
-  it('InfiniteScrollListPage loads (/infinite_scroll)', () => {
-    if (overridden('infiniteScrollListPageLoads')) return;
-    new InfiniteScrollListPage().open().verify().sectionHeadingsVisible();
-  });
-
-  describe('InfiniteScrollPage loads (3 of 29 crawled examples)', () => {
-    for (const example of InfiniteScrollPage.EXAMPLES.slice(0, 3)) {
-      it(`InfiniteScrollPage loads ${String(example)}`, () => {
-        if (overridden('infiniteScrollPageLoads', example)) return;
-        new InfiniteScrollPage().open(example).verify().isLoaded();
-      });
-    }
+  it('InfiniteScrollPage loads (/infinite_scroll)', () => {
+    if (overridden('infiniteScrollPageLoads')) return;
+    new InfiniteScrollPage().open().verify().sectionHeadingsVisible();
   });
 
   it('CheckboxesPage loads (/checkboxes)', () => {
@@ -378,9 +368,9 @@ describe('SmokeTest: every page type opens and looks like itself',
     new TyposPage().open().verify().sectionHeadingsVisible();
   });
 
-  it('TwoFactorPage: the "Log in with tomsmith and SuperSecretPassword!. Then enter th" form is there and empty '
-          + '(nothing is sent)', () => {
-    if (overridden('twoFactorThenEnterThForm')) return;
+  it('TwoFactorPage: the "Then enter the one-time code shown on the next page." form is there and empty (nothing is '
+          + 'sent)', () => {
+    if (overridden('twoFactorThenEnterTheOneTimeCodeShownOnTheNextForm')) return;
     new TwoFactorPage().open().verify()
       .isEmpty(TwoFactorElements.USERNAME_INPUT)
       .isEmpty(TwoFactorElements.PASSWORD_INPUT)

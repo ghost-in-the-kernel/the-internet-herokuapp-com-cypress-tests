@@ -4,7 +4,6 @@
 import { Checks } from '../../../core/Checks';
 import { type PageElement } from '../../../core/PageElement';
 import { StepLog } from '../../../core/StepLog';
-import { UrlPaths } from '../../../uri/UrlPaths';
 import { InfiniteScrollElements } from '../InfiniteScrollElements';
 import { InfiniteScrollPage } from '../InfiniteScrollPage';
 // ==== YOURS (imports): safe to edit; regenerating keeps what is between these lines ====
@@ -12,7 +11,7 @@ import { InfiniteScrollPage } from '../InfiniteScrollPage';
 
 /** Checks on InfiniteScrollPage. Each logs a step and fails in plain English. */
 export class InfiniteScrollVerifyActions {
-  /** The page has fully loaded: URL, page load and key elements. */
+  /** The page has fully loaded: URL, page load, title and key elements. */
   isLoaded(): InfiniteScrollVerifyActions {
     const here = new InfiniteScrollPage();
     StepLog.step(`Check that ${here.describe()} has fully loaded`);
@@ -20,12 +19,9 @@ export class InfiniteScrollVerifyActions {
     return this;
   }
 
-  /**
-   * It is the page open(name) goes to: its address says so. isLoaded() proves only that it is one of this family's
-   * pages.
-   */
-  isThePageOf(name: string): InfiniteScrollVerifyActions {
-    Checks.isOnPath(UrlPaths.infiniteScroll(name));
+  /** Every section heading this page type shares is visible. */
+  sectionHeadingsVisible(): InfiniteScrollVerifyActions {
+    Checks.allShown('its section headings ("Infinite Scroll")', InfiniteScrollElements.INFINITE_SCROLL_HEADING);
     return this;
   }
 

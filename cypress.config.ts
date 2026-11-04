@@ -597,8 +597,10 @@ export default defineConfig({
     video: false,
     // The failure's screenshot is taken by the suite (support/e2e.ts), under a name short enough for Windows.
     screenshotOnRunFailure: false,
-    // Links that go to another site are followed there (Cypress would stop at the site's edge).
-    chromeWebSecurity: false,
+    // Chrome's same-origin policy stays on: no check of this suite goes through another site's frame, and with it off
+    // the test browser, holding the suite's session, would read what any other site answers a page that points it
+    // there.
+    chromeWebSecurity: true,
     setupNodeEvents(on, config) {
       // Steps, in plain English, printed to the terminal as they happen.
       on('task', {

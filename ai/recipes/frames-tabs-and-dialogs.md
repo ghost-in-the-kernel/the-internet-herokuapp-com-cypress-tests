@@ -13,7 +13,7 @@ document in an action of its own:
   }
 ```
 
-A frame from another site needs `chromeWebSecurity: false` (set already) and runs in Chrome-family browsers only.
+This suite keeps `chromeWebSecurity: true` (cypress.config.ts): no check of it goes through another site's frame, and with it off the test browser, holding the suite's session, reads whatever another site answers. A frame from another site can be reached only with it `false`, in Chrome-family browsers only: turn it off for that alone, and say why beside it.
 
 **A link that opens a new tab**: Cypress drives one tab, so it is followed in this one
 (`UserActions.clickOpeningNewTab` takes its target off first); the next page object carries on here.

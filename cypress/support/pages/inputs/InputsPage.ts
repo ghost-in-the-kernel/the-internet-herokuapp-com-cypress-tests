@@ -66,7 +66,7 @@ export class InputsPage extends LoadablePage<InputsPage> {
 
   /** What the crawl timed of these pages after their load event (the run's page timings flag one much slower). */
   protected crawlSettledMs(): number {
-    return 0;
+    return 200;
   }
 
   enter(): InputsEnterActions {
