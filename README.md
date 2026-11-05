@@ -194,6 +194,9 @@ folder, then:
 
 `ai/AI-README.md` is written for an AI assistant: hand it this folder, put the stories in stories/new/, and
 say "do the stories". The crawl this was generated from is in `crawl/`: keep it with the project.
+Every file name in it is plain ASCII on purpose (A-Z a-z 0-9 . _ - =), a page's as crawled too, whatever its
+address held: Windows' zip refuses some names (an accent written as two characters stopped one suite's zip). Name a
+file you add the same way: `pack` stops on one that is not, and says the fix.
 
 ## Notes
 

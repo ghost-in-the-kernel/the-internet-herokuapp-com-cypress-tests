@@ -72,6 +72,49 @@ function leftOut(rel, pagesCurrent) {
   return null;
 }
 
+/**
+ * Why a name in the suite would stop its zip on Windows, or null: a character outside A-Z a-z 0-9 . _ - =, a name
+ * Windows
+ * keeps for a device, a trailing dot or space. Suite Builder names every file so; a suite built before it did can hold
+ * one.
+ */
+function notPortable(rel) {
+  for (const piece of rel.split('/')) {
+    const odd = /[^A-Za-z0-9._=-]/u.exec(piece);
+    if (odd) {
+      const c = String.fromCodePoint(piece.codePointAt(odd.index));
+      return `"${c}" (U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')})`;
+    }
+    if (/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(\..*)?$/i.test(
+            piece)) return `"${piece}" is a name Windows keeps for a device`;
+    if (/[. ]$/.test(piece)) return `"${piece}" ends in a dot or a space, which Windows drops`;
+  }
+  return null;
+}
+
+/**
+ * Why a name is too long for Windows once unzipped, or null: a path over LONGEST_PATH, a file or folder name over 100.
+ */
+function tooLong(rel) {
+  if (rel.length > LONGEST_PATH)
+    return `${rel.length} characters, more than ${LONGEST_PATH} (Windows' 260, less room for the folder it is unzipped `
+            + `in)`;
+  const long = rel.split('/').find((piece) => piece.length > 100);
+  return long ? `"${long}" is ${long.length} characters, more than 100` : null;
+}
+
+/**
+ * The one line that fixes a name that is not portable: the pages as crawled are renamed by a rebuild; any other is
+ * renamed by hand.
+ */
+function portableFix(rel) {
+  if (rel.startsWith(
+          'crawl/pages/')) return `rebuild the suite (suite build ${basename(resolve('.'))}): it renames the pages as `
+          + `crawled`;
+  const plain = rel.normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^A-Za-z0-9._=/-]/gu, '_');
+  return `rename it to ${plain}`;
+}
+
 function files(dir) {
   return readdirSync(dir, { withFileTypes: true })
     .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
@@ -163,6 +206,34 @@ for (const file of files(suite)) {
   const account = rel.startsWith('secrets/') && rel.endsWith('.login');
   if (account) blanked++;
   entries.push([`${folder}/${rel}`, account ? Buffer.from(BLANK_ACCOUNT, 'utf8') : readFileSync(file)]);
+}
+// Every name checked before anything is written: one that is not portable stops the pack, named with the fix. A run's
+// evidence, named by the test runner (a retry's screenshot holds " (attempt 2)"), is not the suite's own and goes in as
+// it is.
+// Too long a path or name, and one file twice but for case (Windows and macOS keep one), stop it too.
+const odd = [];
+const byCase = new Map();
+for (const [name] of entries) {
+  const rel = name.slice(folder.length + 1);
+  if (run && RUN_TAKES.some((take) => rel === take || (take.endsWith('/') && rel.startsWith(take)))) continue;
+  const why = notPortable(rel);
+  if (why) {
+    odd.push([rel, why, portableFix(rel)]);
+    continue;
+  }
+  const long = tooLong(rel);
+  if (long) odd.push([rel, long, 'shorten it']);
+  const same = byCase.get(rel.toLowerCase());
+  if (same) odd.push([rel, `the same file as ${same} on Windows and macOS`, 'rename one of the two']);
+  else byCase.set(rel.toLowerCase(), rel);
+}
+if (odd.length) {
+  console.log(
+    `Not packed: ${odd.length} name${odd.length === 1 ? '' : 's'} would stop this zip on Windows, which takes only A-Z `
+            + `a-z 0-9 . _ - = in a suite's names:`,
+  );
+  for (const [rel, why, fix] of odd) console.log(`  ${rel}: ${why}. Fix: ${fix}.`);
+  process.exit(1);
 }
 const packed = zip(entries);
 writeFileSync(out, packed);
